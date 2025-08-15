@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 using namespace std;
 
 // -----Stack Class-----
@@ -350,7 +351,7 @@ public:
         
         }
 
-        if (cur->data) {
+        if (cur->next) {
             
             node* item = cur->next;
             cur->next = cur->next->next;
@@ -515,6 +516,25 @@ public:
         }
 
         size--;
+    }
+
+    void display() {
+        if (!head) {
+            cout << "List is empty.\n";
+            return;
+        }
+
+        cout << "Size: " << size << '\n';
+
+        cout << "Head --> ";
+        Dnode* cur = head;
+        while (cur) {
+            cout << "[" << cur->data << "]";
+            if (cur == tail) cout << " <-- Tail";
+            if (cur->next) cout << " <-> ";
+            cur = cur->next;
+        }
+        cout << " --> NULL\n";
     }
 
 };
@@ -720,7 +740,252 @@ public:
 };
 
 
+//-----------------------------
+
+
+
+// -----Main Menu Of Data Structure-----
+
+
+void stackMenu () {
+    mystack st;
+    int op, val;
+    
+    do {
+        cout << "\n======== Stack Menu ========\n";
+
+        cout << "1. Push \n2. Pop \n3. Display \n0. Back \nEnter Choice: ";
+
+        cin >> op;
+
+        if (op == 1) {
+            cout << "Enter Value: "; cin >> val;
+
+            st.push (val);
+        }
+
+        else if (op == 2) {
+            st.pop ();
+        }
+        else if (op == 3) {
+            st.display ();
+        }
+    
+    } while (op != 0);
+
+
+}
+
+
+void vectorMenu() {
+    myvector v;
+    int op, val;
+    
+    do {
+        
+        cout << "\n--- Vector Menu ---\n";
+        
+        cout << "1. Push Back\n2. Pop Back\n3. Display\n0. Back\nEnter choice: ";
+        
+        cin >> op;
+        
+        if (op == 1) { 
+            cout << "Enter value: "; cin >> val; v.push_back(val); 
+        }
+        
+        else if (op == 2) {
+            v.pop_back();
+        }
+        
+        else if (op == 3) {
+            v.display();
+        }
+    
+    } while (op != 0);
+}
+
+void queueMenu() {
+    myqueue q;
+    int op, val;
+    
+    do {
+    
+        cout << "\n--- Queue Menu ---\n";
+    
+        cout << "1. Enqueue\n2. Dequeue\n3. Display\n0. Back\nEnter choice: ";
+    
+        cin >> op;
+    
+        if (op == 1) { 
+            cout << "Enter value: "; cin >> val; q.enqueue(val); 
+        }
+    
+        else if (op == 2) {
+            q.dequeue();
+        }
+    
+        else if (op == 3) {
+            q.display();
+        }
+    
+    } while (op != 0);
+}
+
+void singlyLinkedListMenu() {
+    linkedlist ll;
+    int op, val;
+    
+    do {
+    
+        cout << "\n--- Singly Linked List Menu ---\n";
+    
+        cout << "1. Insert Front\n2. Insert End\n3. Delete Value\n4. Display\n0. Back\nEnter choice: ";
+    
+        cin >> op;
+    
+        if (op == 1) { 
+            cout << "Enter value: "; cin >> val; ll.insertfront(val);
+        }
+    
+        else if (op == 2) {
+            cout << "Enter value: "; cin >> val; ll.insertend(val); 
+        }
+    
+        else if (op == 3) { 
+            cout << "Enter value to delete: "; cin >> val; ll.deletevalue(val); 
+        }
+    
+        else if (op == 4) { 
+            ll.display();
+        }
+    
+    } while (op != 0);
+}
+
+void doublyLinkedListMenu() {
+    doublylinkedlist dll;
+    int op, val;
+    
+    do {
+    
+        cout << "\n--- Doubly Linked List Menu ---\n";
+    
+        cout << "1. Insert Front\n2. Insert End\n3. Delete Value\n4. Display\n0. Back\nEnter choice: ";
+    
+        cin >> op;
+    
+        if (op == 1) { 
+            cout << "Enter value: "; cin >> val; dll.insertfront (val); 
+        }
+    
+        else if (op == 2) { 
+            cout << "Enter value: "; cin >> val; dll.insertend (val); 
+        }
+    
+        else if (op == 3) { 
+            cout << "Enter value to delete: "; cin >> val; dll.deletevalue(val); 
+        }
+
+        else if (op == 4) {
+            dll.display ();
+        }
+    
+    } while (op != 0);
+}
+
+void binaryTreeMenu() {
+    binarytree bt;
+    int op, val;
+    
+    do {
+    
+        cout << "\n--- Binary Tree Menu ---\n";
+    
+        cout << "1. Insert\n2. Delete\n3. Display\n0. Back\nEnter choice: ";
+    
+        cin >> op;
+    
+        if (op == 1) { 
+            cout << "Enter value: "; cin >> val; bt.insert(val); 
+        }
+    
+        else if (op == 2) { 
+            cout << "Enter value to delete: "; cin >> val; bt.deleteNode(val); 
+        }
+    
+        else if (op == 3) {
+            bt.display();
+        }
+    
+    } while (op != 0);
+}
+
+
+void bstMenu() {
+    BST bst;
+    int op, val;
+    
+    do {
+    
+        cout << "\n--- BST Menu ---\n";
+    
+        cout << "1. Insert\n2. Delete\n3. Display\n0. Back\nEnter choice: ";
+    
+        cin >> op;
+    
+        if (op == 1) {
+            cout << "Enter value: "; cin >> val; bst.insert(val);
+        }
+    
+        else if (op == 2) { 
+            cout << "Enter value to delete: "; cin >> val; bst.deleteNode(val); 
+        }
+    
+        else if (op == 3) { 
+            bst.display();
+        }
+    
+    } while (op != 0);
+}
+
+
+
 
 
 int main () {
+    
+    int choice;
+
+    
+    
+    do {
+        system ("cls");
+
+        cout << "\n======== Data Structure Main Menu ========\n";
+    
+        cout << "1. Stack \n2. Vector \n3. Queue \n4. Singly Linked List \n5. Doubly Linked List \n6. Binary Tree \n7. Binary Search Tree \n0. Exit \nEnter Choice: ";
+        
+        cin >> choice;
+
+        if (choice == 1) {
+            stackMenu();
+        } else if (choice == 2) {
+            vectorMenu ();
+        } else if (choice == 3) {
+            queueMenu ();
+        } else if (choice == 4) {
+            singlyLinkedListMenu ();
+        } else if (choice == 5) {
+            doublyLinkedListMenu ();
+        } else if (choice == 6) {
+            binaryTreeMenu ();
+        } else if (choice == 7) {
+            bstMenu ();
+        }
+    } while (choice != 0);
+
+
+
+
+    cout << "Good bye.....!";
 }
