@@ -519,9 +519,205 @@ public:
 
 };
 
+//------------------------------------
 
 
 
+
+// -----Binary Tree full structure-----
+
+#include <queue>  // we use a queue stl only to implement a binary tree 
+
+struct btnode {
+    int data;
+    btnode* left;
+    btnode* right;
+
+
+    btnode (int val) : data (val), left (nullptr), right (nullptr) {}
+};
+
+
+class binarytree {
+private:
+
+    btnode* root;
+
+    int height (btnode* node) {
+        if (!node) {
+            return 0;
+        }
+
+        return 1 + max (height (node->left), height (node->right));
+    }
+
+
+    void displayTree(btnode* node, int space) {
+        if (!node) return;
+        space += 5;
+        displayTree(node->right, space);
+        cout << '\n';
+        for (int i = 5; i < space; i++) cout << " ";
+        cout << node->data << "\n";
+        displayTree(node->left, space);
+    }
+
+
+public:
+    binarytree() : root(nullptr) {}
+
+    void insert(int val) {
+        btnode* newNode = new btnode(val);
+        if (!root) {
+            root = newNode;
+            return;
+        }
+        queue<btnode*> q;
+        q.push(root);
+        while (!q.empty()) {
+            btnode* temp = q.front();
+            q.pop();
+            if (!temp->left) {
+                temp->left = newNode;
+                return;
+            } else q.push(temp->left);
+
+            if (!temp->right) {
+                temp->right = newNode;
+                return;
+            } else q.push(temp->right);
+        }
+    }
+
+    void deleteNode(int val) {
+        if (!root) return;
+        queue<btnode*> q;
+        q.push(root);
+        btnode* toDelete = nullptr;
+        btnode* lastNode = nullptr;
+        btnode* parentOfLast = nullptr;
+
+        while (!q.empty()) {
+            lastNode = q.front();
+            q.pop();
+            if (lastNode->data == val) toDelete = lastNode;
+            if (lastNode->left) {
+                parentOfLast = lastNode;
+                q.push(lastNode->left);
+            }
+            if (lastNode->right) {
+                parentOfLast = lastNode;
+                q.push(lastNode->right);
+            }
+        }
+
+        if (toDelete) {
+            toDelete->data = lastNode->data;
+            if (parentOfLast->right == lastNode) parentOfLast->right = nullptr;
+            else parentOfLast->left = nullptr;
+            delete lastNode;
+        }
+    }
+
+    void display() {
+        displayTree(root, 0);
+        cout << "Height: " << height(root) << '\n';
+    }
+
+
+};
+//--------------------------------
+
+
+// ----- binary search tree full structure -----
+// we use a queue stl only to implement a binary search tree 
+
+
+struct bstnode {
+    int data;
+    bstnode* left;
+    bstnode* right;
+
+
+    bstnode (int val) : data (val), left (nullptr), right (nullptr) {}
+
+};
+
+
+class BST {
+private:
+    bstnode* root;
+
+    bstnode* insertNode(bstnode* node, int val) {
+        if (!node) return new bstnode(val);
+        if (val < node->data) node->left = insertNode(node->left, val);
+        
+        else node->right = insertNode(node->right, val);
+        
+        return node;
+    }
+
+    bstnode* findMin(bstnode* node) {
+        while (node && node->left){
+            node = node->left;
+        } 
+        return node;
+    }
+
+    bstnode* deleteNodeRec(bstnode* node, int val) {
+        if (!node) return node;
+        if (val < node->data) node->left = deleteNodeRec(node->left, val);
+        else if (val > node->data) node->right = deleteNodeRec(node->right, val);
+        else {
+            if (!node->left) {
+                bstnode* temp = node->right;
+                delete node;
+                return temp;
+            }
+            else if (!node->right) {
+                bstnode* temp = node->left;
+                delete node;
+                return temp;
+            }
+            bstnode* temp = findMin(node->right);
+            node->data = temp->data;
+            node->right = deleteNodeRec(node->right, temp->data);
+        }
+        return node;
+    }
+
+    void displayTree(bstnode* node, int space) {
+        if (!node) return;
+        space += 5;
+        displayTree(node->right, space);
+        cout << '\n';
+        for (int i = 5; i < space; i++) cout << " ";
+        cout << node->data << "\n";
+        displayTree(node->left, space);
+    }
+
+    int height(bstnode* node) {
+        if (!node) return 0;
+        
+        return 1 + max(height(node->left), height(node->right));
+    }
+
+public:
+    BST() : root(nullptr) {}
+
+    void insert(int val) {
+        root = insertNode(root, val);
+    }
+
+    void deleteNode(int val) {
+        root = deleteNodeRec(root, val);
+    }
+
+    void display() {
+        displayTree(root, 0);
+        cout << "Height: " << height(root) << '\n';
+    }
+};
 
 
 
